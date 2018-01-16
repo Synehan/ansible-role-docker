@@ -1,31 +1,56 @@
-Role Name
+Docker
 =========
 
-A brief description of the role goes here.
+This role helps install and configure Docker on Ubuntu or Centos. It will configure the docker repositories, install docker prerequisites, and do some minor configurations.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires Ansible 2.4 or upper.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Availables variables are described below, including any variables that are in defaults/main.yml:
+
+```yaml
+# defaults file for synehan.docker
+# Proxy configuration
+docker_use_proxy: False
+docker_http_proxy: ""
+docker_https_proxy: ""
+docker_no_proxy: ""
+
+# If you want to use this role with an old installation.
+docker_remove_old_packages: False
+
+# Activate Edge and Test repositories (Only for Centos)
+docker_edge_repository_enable: no
+docker_test_repository_enable: no
+
+# The version of docker you want to use. For example
+# On Centos: 17.09.1.ce
+# On Ubuntu: 17.09.1~ce-0~ubuntu
+docker_version: ""
+
+# Enable debug
+docker_daemon_config_debug: 'false'
+docker_daemon_config_log_level: 'debug'
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+You can simply use this role like this: 
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: synehan.docker }
 
 License
 -------
@@ -34,5 +59,3 @@ BSD
 
 Author Information
 ------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
