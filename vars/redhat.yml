@@ -1,0 +1,23 @@
+---
+docker_packages_to_remove:
+  - docker
+  - docker-common
+  - docker-selinux
+  - docker-engine
+
+docker_preinstall_packages:
+  - yum-utils
+
+docker_devicemapper_packages:
+  - device-mapper-persistent-data
+  - lvm2
+
+docker_gpg_key_url: https://download.docker.com/linux/centos/gpg
+
+docker_repositories:
+  - name: Stable
+    enabled: yes
+  - name: Edge
+    enabled: "{{ docker_edge_repository_enable }}"
+  - name: Test
+    enabled: "{{ docker_test_repository_enable }}"

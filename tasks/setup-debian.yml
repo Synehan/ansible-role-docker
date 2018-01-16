@@ -1,0 +1,23 @@
+---
+- name: Install prerequiste packages
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ docker_preinstall_packages }}"
+
+- name: Add Docker GPG key
+  apt_key:
+    url: "{{ docker_gpg_key_url }}"
+    id: "{{ docker_gpg_key_id }}"
+
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ docker_os_distribution | default(ansible_distribution_release) }} {{ docker_repository | default("stable") }}
+    state: present
+    update_cache: yes
+
+- name: Install Docker-ce {{ docker_version }}
+  apt:
+    name: docker-ce{% if docker_version is defined and docker_version != "" %}={{ docker_version }}{% endif %}
+    update_cache: yes

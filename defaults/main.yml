@@ -1,0 +1,10 @@
+---
+# defaults file for synehan.docker
+docker_use_proxy: False
+
+docker_remove_old_packages: False
+
+docker_edge_repository_enable: no
+docker_test_repository_enable: no
+
+docker_version: ""

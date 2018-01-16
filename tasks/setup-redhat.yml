@@ -1,0 +1,27 @@
+---
+- name: Install required packages for Docker
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ docker_preinstall_packages }}"
+
+- name: Install required packages for devicemapper storage driver
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ docker_devicemapper_packages }}"
+
+- name: Configure docker repository
+  yum_repository:
+    name: docker-ce-{{ item.name | lower }}
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/{{ item.name | lower }}
+    enabled: "{{ item.enabled }}"
+    file: docker-ce
+    gpgcheck: yes
+    gpgkey: "{{ docker_gpg_key_url }}"
+    description: Docker CE {{ item.name }} - $basearch
+  with_items: "{{ docker_repositories }}"
+
+- name: Install Docker-ce
+  yum:
+    name: docker-ce{% if docker_version is defined and docker_version != "" %}-{{ docker_version }}{% endif %}

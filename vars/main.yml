@@ -1,0 +1,4 @@
+---
+# vars file for synehan.docker
+docker_systemd_config_path: /etc/systemd/system/docker.service.d
+docker_config_path: /etc/docker/

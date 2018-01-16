@@ -1,0 +1,7 @@
+---
+- name: Delete old version of Docker.
+  package:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ docker_packages_to_remove }}"
+  when: docker_remove_old_packages
